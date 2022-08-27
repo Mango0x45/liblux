@@ -36,6 +36,15 @@ static int intlen(int);
 static int getdir(void);
 static FILE *getbstream(int);
 
+void
+luxfree(struct luxdisp *disp)
+{
+	if (disp->__dirfd != -1)
+		close(disp->__dirfd);
+	if (disp->__bstream != NULL)
+		fclose(disp->__bstream);
+}
+
 int
 luxinit(struct luxdisp *disp)
 {
@@ -49,6 +58,29 @@ luxinit(struct luxdisp *disp)
 		.__dirfd   = getdir()
 	};
 	return disp->__dirfd;
+}
+
+int
+luxmax(struct luxdisp *disp)
+{
+	/* The maximum brightness shouldn't change, so we can cache it in the
+	 * struct.
+	 */
+	if (disp->__max != -1)
+		return disp->__max;
+
+	int fd = openat(disp->__dirfd, "max_brightness", O_RDONLY);
+	if (fd == -1)
+		return -1;
+	FILE *stream = fdopen(fd, "r");
+	if (stream == NULL) {
+		close(fd);
+		return -1;
+	}
+
+	fscanf(stream, "%d", &disp->__max);
+	fclose(stream);
+	return disp->__max;
 }
 
 int
@@ -89,35 +121,43 @@ luxset(struct luxdisp *disp, int n)
 }
 
 int
-luxmax(struct luxdisp *disp)
+luxinc(struct luxdisp *disp, int n)
 {
-	/* The maximum brightness shouldn't change, so we can cache it in the
-	 * struct.
-	 */
-	if (disp->__max != -1)
-		return disp->__max;
-
-	int fd = openat(disp->__dirfd, "max_brightness", O_RDONLY);
-	if (fd == -1)
-		return -1;
-	FILE *stream = fdopen(fd, "r");
-	if (stream == NULL) {
-		close(fd);
-		return -1;
-	}
-
-	fscanf(stream, "%d", &disp->__max);
-	fclose(stream);
-	return disp->__max;
+	return luxset(disp, luxget(disp) + n);
 }
 
-void
-luxfree(struct luxdisp *disp)
+int
+luxdec(struct luxdisp *disp, int n)
 {
-	if (disp->__dirfd != -1)
-		close(disp->__dirfd);
-	if (disp->__bstream != NULL)
-		fclose(disp->__bstream);
+	return luxinc(disp, -n);
+}
+
+double
+luxgetp(struct luxdisp *disp)
+{
+	int cur, max;
+	if ((cur = luxget(disp)) == -1 || (max = luxmax(disp)) == -1)
+		return -1;
+	return (double) cur / max * 100;
+}
+
+double
+luxsetp(struct luxdisp *disp, double p)
+{
+	int max = luxmax(disp);
+	return max == -1 ? -1 : luxset(disp, (int) (p / 100 * max));
+}
+
+double
+luxincp(struct luxdisp *disp, double p)
+{
+	return luxsetp(disp, luxgetp(disp) + p);
+}
+
+double
+luxdecp(struct luxdisp *disp, double p)
+{
+	return luxincp(disp, -p);
 }
 
 int

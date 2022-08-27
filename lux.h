@@ -27,10 +27,17 @@ struct luxdisp {
 	FILE *__bstream;
 };
 
+void luxfree(struct luxdisp *);
 int luxinit(struct luxdisp *);
+int luxmax(struct luxdisp *);
 int luxget(struct luxdisp *);
 int luxset(struct luxdisp *, int);
-int luxmax(struct luxdisp *);
-void luxfree(struct luxdisp *);
+int luxinc(struct luxdisp *, int);
+int luxdec(struct luxdisp *, int);
+
+double luxgetp(struct luxdisp *);
+double luxsetp(struct luxdisp *, double);
+double luxincp(struct luxdisp *, double);
+double luxdecp(struct luxdisp *, double);
 
 #endif /* !LUX_H */
