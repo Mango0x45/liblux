@@ -22,6 +22,10 @@
 
 #define BACKLIGHT_DIR "/sys/class/backlight"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct luxdisp {
 	int __dirfd, __max;
 	FILE *__bstream;
@@ -39,5 +43,9 @@ double luxgetp(struct luxdisp *);
 double luxsetp(struct luxdisp *, double);
 double luxincp(struct luxdisp *, double);
 double luxdecp(struct luxdisp *, double);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* !LUX_H */
