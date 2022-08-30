@@ -1,0 +1,117 @@
+.\" tw=80
+.\"
+.\" BSD Zero Clause License
+.\" 
+.\" Copyright (c) 2022 Thomas Voss
+.\" 
+.\" Permission to use, copy, modify, and/or distribute this software for any
+.\" purpose with or without fee is hereby granted.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+.\" REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+.\" AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+.\" INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+.\" LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+.\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+.\" PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: August 30 2022 $
+.Dt LUXINIT 3
+.Os
+.Sh NAME
+.Nm luxinit ,
+.Nm luxfree
+.Nd initialize and destroy a luxdisp struct
+.Sh SYNOPSIS
+.In lux.h
+.Ft int
+.Fn luxinit "struct luxdisp *disp"
+.Ft void
+.Fn luxfree "struct luxdisp *disp"
+.Sh DESCRIPTION
+The
+.Fn luxinit
+function initializes the values of the
+.Vt "struct luxdisp"
+structure pointed to by
+.Va disp .
+Allocation of
+.Va disp
+is left up to the user.
+All
+.Vt "struct luxdisp"
+structures should be initialized with the
+.Fn luxinit
+function before being used with any other library functions.
+.Pp
+The
+.Fn luxfree
+function does the opposite of the
+.Fn luxinit
+function, cleaning up all the resources used by the
+.Vt "struct luxdisp"
+structure pointed to by
+.Va disp .
+This function should be called for all
+.Vt "struct luxdisp"
+structures that have been initialized by
+.Fn luxinit
+after they are no longer required.
+.Sh RETURN VALUES
+The
+.Fn luxinit
+function returns the file descriptior of the directory containing the backlight
+files located in
+.Pa /sys/class/backlight
+on success.
+On error, \-1 is returned and
+.Va errno
+is set to indicate the error.
+.Pp
+The
+.Fn luxfree
+function returns no value.
+.Sh EXAMPLES
+The following program initializes a new
+.Vt "struct luxdisp"
+structure, uses it to set the display brightness to 100%, and then frees the
+resources used by the structure.
+.Bd -literal -offset indent
+#include <err.h>
+#include <stdlib.h>
+
+#include <lux.h>
+
+int
+main(void)
+{
+	struct luxdisp disp;
+
+	if (luxinit(&disp) == -1)
+		err(EXIT_FAILURE, "luxinit");
+	luxsetp(&disp, 100.0);
+	luxfree(&disp);
+
+	return EXIT_SUCCESS;
+}
+.Ed
+.Sh ERRORS
+.Fn luxinit
+can fail with any of the errors specified for
+.Fn fdopendir ,
+.Fn open ,
+.Fn openat ,
+or
+.Fn readdir .
+.Sh SEE ALSO
+.Xr luxdec 3 ,
+.Xr luxdecp 3 ,
+.Xr luxget 3 ,
+.Xr luxgetp 3 ,
+.Xr luxinc 3 ,
+.Xr luxincp 3 ,
+.Xr luxmax 3 ,
+.Xr luxset 3 ,
+.Xr luxsetp 3
+.Sh AUTHORS
+.An Thomas Voss Aq Mt thomasvoss@live.com
