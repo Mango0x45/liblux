@@ -1,0 +1,147 @@
+.\" vi: tw=80
+.\"
+.\" BSD Zero Clause License
+.\" 
+.\" Copyright (c) 2022 Thomas Voss
+.\" 
+.\" Permission to use, copy, modify, and/or distribute this software for any
+.\" purpose with or without fee is hereby granted.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+.\" REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+.\" AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+.\" INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+.\" LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+.\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+.\" PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: September 8 2022 $
+.Dt LUXGET 3
+.Os
+.Sh NAME
+.Nm luxget ,
+.Nm luxmax ,
+.Nm luxgetp
+.Nd query the current or maximum brightness of a display
+.Sh SYNOPSIS
+.In lux.h
+.Ft int
+.Fn luxget "struct luxdisp *disp"
+.Ft int
+.Fn luxmax "struct luxdisp *disp"
+.Ft double
+.Fn luxgetp "struct luxdisp *disp"
+.Sh DESCRIPTION
+The
+.Fn luxget
+function takes a pointer to a
+.Vt "struct luxdisp"
+structure and returns the raw brightness value of the associated display.
+If the function returns \-1 it means that an error has occured, however this is
+only possible if
+.Va disp
+has not yet been passed to any other library function that interacts with the
+current brightness level, whether that be to get the current brightness or set
+the current brightness.
+.Pp
+The
+.Fn luxmax
+function behaves identically to the
+.Fn luxget
+function except it returns the maximum supported brightness of the display
+refered to by
+.Va disp .
+Additionally, this function can only error if
+.Va disp
+has not yet been used as a parameter to an invocation of either
+.Fn luxmax
+or any of the
+.Fn lux*p
+functions.
+.Pp
+The
+.Fn luxgetp
+function takes a pointer to a
+.Vt "struct luxdisp"
+structure and returns the brightness of the associated display as a percentage.
+A return value of 100.0 means the display is at 100% brightness.
+If the function returns \-1 it means that an error has occured.
+Internally this function calls both
+.Fn luxget
+and
+.Fn luxmax ,
+so if both of those functions are in a state where they can no longer fail, then
+you do not need to error check this function.
+.Sh RETURN VALUES
+The
+.Fn luxget
+function returns the raw brightness value of the associated display.
+.Pp
+The
+.Fn luxmax
+function returns the maximum raw brightness value of the associated display.
+.Pp
+The
+.Fn luxgetp
+function returns the current brightness percentage of the associated display.
+A value of 100.0 is equivalent to 100% brightness.
+.Pp
+On error, all the above functions will return \-1 and
+.Va errno
+is set to indicate the error.
+.Sh EXAMPLES
+The following program queries and prints information regarding displays current
+brightness.
+.Bd -literal -offset indent
+#include <err.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <lux.h>
+
+int
+main(void)
+{
+	int cur, max;
+	double curp;
+	struct luxdisp disp;
+
+	luxinit(&disp);
+
+	if ((cur = luxget(&disp)) == -1)
+		err(EXIT_FAILURE, "luxget");
+	if ((max = luxmax(&disp)) == -1)
+		err(EXIT_FAILURE, "luxmax");
+
+	/* Because we already passed disp to luxget() and luxmax() previously,
+	 * we don't need to do error checking!
+	 */
+	curp = luxgetp(&disp);
+
+	printf("Current Brightness (Raw):        %d/%d\en", cur, max);
+	printf("Current Brightness (Percentage): %d%%/100%%\en", (int) curp);
+
+	luxfree(&disp);
+	return EXIT_SUCCESS;
+}
+.Ed
+.Sh ERRORS
+.Fn luxget ,
+.Fn luxmax ,
+and
+.Fn luxgetp
+can fail with any of the errors specified for
+.Fn fdopen
+or
+.Fn openat .
+.Sh SEE ALSO
+.Xr luxdec 3 ,
+.Xr luxdecp 3 ,
+.Xr luxfree 3 ,
+.Xr luxinc 3 ,
+.Xr luxincp 3 ,
+.Xr luxinit 3 ,
+.Xr luxset 3 ,
+.Xr luxsetp 3
+.Sh AUTHORS
+.An Thomas Voss Aq Mt thomasvoss@live.com
