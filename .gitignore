@@ -1,2 +1,4 @@
+.aspell.en.prepl
 *.[ao]
 *.so
+man/*.bak
