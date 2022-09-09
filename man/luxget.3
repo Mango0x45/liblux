@@ -15,7 +15,7 @@
 .\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: September 8 2022 $
+.Dd $Mdocdate: September 9 2022 $
 .Dt LUXGET 3
 .Os
 .Sh NAME
@@ -37,7 +37,7 @@ The
 function takes a pointer to a
 .Vt "struct luxdisp"
 structure and returns the raw brightness value of the associated display.
-If the function returns \-1 it means that an error has occured, however this is
+If the function returns \-1 it means that an error has occurred, however this is
 only possible if
 .Va disp
 has not yet been passed to any other library function that interacts with the
@@ -49,7 +49,7 @@ The
 function behaves identically to the
 .Fn luxget
 function except it returns the maximum supported brightness of the display
-refered to by
+referred to by
 .Va disp .
 Additionally, this function can only error if
 .Va disp
@@ -65,7 +65,7 @@ function takes a pointer to a
 .Vt "struct luxdisp"
 structure and returns the brightness of the associated display as a percentage.
 A return value of 100.0 means the display is at 100% brightness.
-If the function returns \-1 it means that an error has occured.
+If the function returns \-1 it means that an error has occurred.
 Internally this function calls both
 .Fn luxget
 and
