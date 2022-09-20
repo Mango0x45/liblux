@@ -18,10 +18,11 @@ liblux.so: ${sources}
 	${CC} ${CFLAGS} -o $@ -fPIC -shared liblux.o
 
 install:
-	mkdir -p ${PREFIX}/include ${PREFIX}/lib ${MANDIR}/man3
+	mkdir -p ${PREFIX}/include ${PREFIX}/lib ${MANDIR}/man0 ${MANDIR}/man3
 	cp ${outputs} ${PREFIX}/lib
 	cp lux.h ${PREFIX}/include
-	cp man/* ${MANDIR}/man3
+	cp man/*.0 ${MANDIR}/man0
+	cp man/*.3 ${MANDIR}/man3
 	file=/usr/share/groff/current/tmac/mdoc/doc-syms; \
 		grep '^\.ds doc-str-Lb-liblux' $$file > /dev/null || \
 		cat man/Lb-desc.tmac >> $$file
