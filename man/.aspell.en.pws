@@ -1,17 +1,25 @@
-personal_ws-1.1 en 31 
+personal_ws-1.1 en 43 
 Aq
 LUXGET
 MERCHANTABILITY
 Mdocdate
+POSIX
 TODO
 TORTIOUS
 Voss
+argc
+argv
+atoi
 backlight
+cacheable
 curp
 disp
 errno
 fdopen
 fdopendir
+fprintf
+getopt
+liblux
 luxdec
 luxdecp
 luxdisp
@@ -23,10 +31,14 @@ luxinit
 luxmax
 luxset
 luxsetp
+nroff
 openat
+optarg
 printf
 readdir
+stderr
 stdlib
 struct
 sys
 tw
+unistd
