@@ -15,7 +15,7 @@
 .\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: September 9 2022 $
+.Dd $Mdocdate: September 20 2022 $
 .Dt LUXSET 3
 .Os
 .Sh NAME
@@ -26,6 +26,8 @@
 .Nm luxincp ,
 .Nm luxdecp
 .Nd modify display brightness levels
+.Sh LIBRARY
+.Lb liblux
 .Sh SYNOPSIS
 .In lux.h
 .Ft int
@@ -160,6 +162,7 @@ can fail with any of the errors specified for
 or
 .Fn openat .
 .Sh SEE ALSO
+.Xr lux.h 0 ,
 .Xr luxfree 3 ,
 .Xr luxget 3 ,
 .Xr luxgetp 3 ,

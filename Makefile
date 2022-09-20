@@ -22,6 +22,9 @@ install:
 	cp ${outputs} ${PREFIX}/lib
 	cp lux.h ${PREFIX}/include
 	cp man/* ${MANDIR}/man3
+	file=/usr/share/groff/current/tmac/mdoc/doc-syms; \
+		grep '^\.ds doc-str-Lb-liblux' $$file > /dev/null || \
+		cat man/Lb-desc.tmac >> $$file
 
 clean:
 	rm -f ${outputs} liblux.o

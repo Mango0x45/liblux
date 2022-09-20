@@ -15,7 +15,7 @@
 .\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: September 9 2022 $
+.Dd $Mdocdate: September 20 2022 $
 .Dt LUXGET 3
 .Os
 .Sh NAME
@@ -23,6 +23,8 @@
 .Nm luxmax ,
 .Nm luxgetp
 .Nd query the current or maximum brightness of a display
+.Sh LIBRARY
+.Lb liblux
 .Sh SYNOPSIS
 .In lux.h
 .Ft int
@@ -135,6 +137,7 @@ can fail with any of the errors specified for
 or
 .Fn openat .
 .Sh SEE ALSO
+.Xr lux.h 0 ,
 .Xr luxdec 3 ,
 .Xr luxdecp 3 ,
 .Xr luxfree 3 ,
