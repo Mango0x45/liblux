@@ -19,6 +19,7 @@
 
 #include <dirent.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #include "lux.h"
 
@@ -54,15 +55,19 @@ getdir(void)
 	 * Finally we open the folder so that we have a file descriptor we can
 	 * return.
 	 */
-	if ((dfd = open(LUX_BACKLIGHT_DIR, O_RDONLY)) == -1
-			|| (dir = fdopendir(dfd)) == NULL)
+	if ((dfd = open(LUX_BACKLIGHT_DIR, O_RDONLY)) == -1)
 		return -1;
+	if ((dir = fdopendir(dfd)) == NULL) {
+		close(dfd);
+		return -1;
+	}
 	if ((dp = readdir(dir)) == NULL
 			|| (dp = readdir(dir)) == NULL
 			|| (dp = readdir(dir)) == NULL
 			|| (fd = openat(dfd, dp->d_name, LUX_GDIR_FLAGS)) == -1)
 		fd = -1;
 
+	close(dfd);
 	closedir(dir);
 	return fd;
 }
