@@ -1,3 +1,4 @@
+.tup/
 .aspell.en.prepl
 man/*.bak
 src/*
