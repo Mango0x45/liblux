@@ -15,37 +15,10 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef LUX_H
-#define LUX_H
+#include "lux.h"
 
-#include <stdio.h>
-
-#define BACKLIGHT_DIR "/sys/class/backlight"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-struct luxdisp {
-	int __dirfd, __max;
-	FILE *__bstream;
-};
-
-void luxfree(struct luxdisp *);
-int luxinit(struct luxdisp *);
-int luxmax(struct luxdisp *);
-int luxget(struct luxdisp *);
-int luxset(struct luxdisp *, int);
-int luxinc(struct luxdisp *, int);
-int luxdec(struct luxdisp *, int);
-
-double luxgetp(struct luxdisp *);
-double luxsetp(struct luxdisp *, double);
-double luxincp(struct luxdisp *, double);
-double luxdecp(struct luxdisp *, double);
-
-#ifdef __cplusplus
+int
+luxinc(lux_t *disp, int n)
+{
+	return luxset(disp, luxget(disp) + n);
 }
-#endif
-
-#endif /* !LUX_H */
