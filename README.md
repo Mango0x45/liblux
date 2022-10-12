@@ -34,8 +34,8 @@ $ man luxget  # To view documentation for the luxget(3) function
 ```
 
 If you prefer to view documentation in your browser (why?), all manuals are also
-available over at [my website][1].  [Here][2] is the link to view documentation
-for the `luxinit(3)` function, for example.
+available over at [my website][1].  [Here][2] is the link to view the manual
+providing an overview of the entire library, for example.
 
 [1]: https://thomasvoss.com/man
-[2]: https://thomasvoss.com/man/luxinit.3.html
+[2]: https://thomasvoss.com/man/lux.h.0.html
