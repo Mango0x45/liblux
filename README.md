@@ -11,10 +11,11 @@ and percentages.
 
 ## Compilation
 
-Compilation of the library is extremely simple:
+Compilation of the library is extremely simple, but will require you to have the
+`tup` build system installed:
 
 ```
-$ make          # To build the library
+$ tup           # To build the library
 # make install  # To install the library, requires root privileges
 ```
 
