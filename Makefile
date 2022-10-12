@@ -5,7 +5,7 @@ DPREFIX = ${DESTDIR}${PREFIX}
 MANDIR  = ${DPREFIX}/share/man
 
 all:
-	@echo "run `tup` to build the library" >&2
+	@echo 'run `tup` to build the library' >&2
 
 install:
 	mkdir -p ${DPREFIX}/include ${DPREFIX}/lib ${DMANDIR}/man0 ${DMANDIR}/man3
