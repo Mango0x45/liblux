@@ -1,0 +1,12 @@
+import CFLAGS=
+CFLAGS += -Wall -Wextra -Wpedantic -Werror
+CFLAGS += -march=native -mtune=native
+CFLAGS += -fomit-frame-pointer -O3
+CFLAGS += -pipe
+
+import CC=cc
+import AR=ar
+
+: foreach *.c |> ^ CC %f^ $(CC) $(CFLAGS) -c %f |> %B.o
+: *.o |> ^ AR %f^ $(AR) crs %o %f |> liblux.a
+: *.o |> ^ CC %f^ $(CC) $(CFLAGS) -fPIC -shared -o %o %f |> liblux.so

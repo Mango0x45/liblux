@@ -1,4 +1,5 @@
 .aspell.en.prepl
-*.[ao]
-*.so
 man/*.bak
+src/*
+!src/*.[ch]
+!src/Tupfile
