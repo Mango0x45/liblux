@@ -15,33 +15,33 @@
 .\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: October 1 2022 $
+.Dd $Mdocdate: October 12 2022 $
 .Dt LUXINIT 3
 .Os
 .Sh NAME
 .Nm luxinit ,
 .Nm luxfree
-.Nd initialise and destroy a luxdisp struct
+.Nd initialise and destroy a lux_t object
 .Sh LIBRARY
 .Lb liblux
 .Sh SYNOPSIS
 .In lux.h
 .Ft int
-.Fn luxinit "struct luxdisp *disp"
+.Fn luxinit "lux_t *disp"
 .Ft void
-.Fn luxfree "struct luxdisp *disp"
+.Fn luxfree "lux_t *disp"
 .Sh DESCRIPTION
 The
 .Fn luxinit
 function initialises the values of the
-.Vt "struct luxdisp"
+.Vt lux_t
 structure pointed to by
 .Va disp .
 Allocation of
 .Va disp
 is left up to the user.
 All
-.Vt "struct luxdisp"
+.Vt lux_t
 structures should be initialised with the
 .Fn luxinit
 function before being used with any other library functions.
@@ -51,11 +51,11 @@ The
 function does the opposite of the
 .Fn luxinit
 function, cleaning up all the resources used by the
-.Vt "struct luxdisp"
+.Vt lux_t
 structure pointed to by
 .Va disp .
 This function should be called for all
-.Vt "struct luxdisp"
+.Vt lux_t
 structures that have been initialised by
 .Fn luxinit
 after they are no longer required.
@@ -75,7 +75,7 @@ The
 function returns no value.
 .Sh EXAMPLES
 The following program initialises a new
-.Vt "struct luxdisp"
+.Vt lux_t
 structure, uses it to set the display brightness to 100%, and then frees the
 resources used by the structure.
 .Bd -literal -offset indent
@@ -87,7 +87,7 @@ resources used by the structure.
 int
 main(void)
 {
-	struct luxdisp disp;
+	lux_t disp;
 
 	if (luxinit(&disp) == -1)
 		err(EXIT_FAILURE, "luxinit");

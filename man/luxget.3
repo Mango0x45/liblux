@@ -15,7 +15,7 @@
 .\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: October 1 2022 $
+.Dd $Mdocdate: October 12 2022 $
 .Dt LUXGET 3
 .Os
 .Sh NAME
@@ -28,16 +28,16 @@
 .Sh SYNOPSIS
 .In lux.h
 .Ft int
-.Fn luxget "struct luxdisp *disp"
+.Fn luxget "lux_t *disp"
 .Ft int
-.Fn luxmax "struct luxdisp *disp"
+.Fn luxmax "lux_t *disp"
 .Ft double
-.Fn luxgetp "struct luxdisp *disp"
+.Fn luxgetp "lux_t *disp"
 .Sh DESCRIPTION
 The
 .Fn luxget
 function takes a pointer to a
-.Vt "struct luxdisp"
+.Vt lux_t
 structure and returns the raw brightness value of the associated display.
 If the function returns \-1 it means that an error has occurred, however this is
 only possible if
@@ -64,7 +64,7 @@ functions.
 The
 .Fn luxgetp
 function takes a pointer to a
-.Vt "struct luxdisp"
+.Vt lux_t
 structure and returns the brightness of the associated display as a percentage.
 A return value of 100.0 means the display is at 100% brightness.
 If the function returns \-1 it means that an error has occurred.
@@ -106,7 +106,7 @@ main(void)
 {
 	int cur, max;
 	double curp;
-	struct luxdisp disp;
+	lux_t disp;
 
 	luxinit(&disp);
 

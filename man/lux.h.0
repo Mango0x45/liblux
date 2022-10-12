@@ -15,7 +15,7 @@
 .\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: October 1 2022 $
+.Dd $Mdocdate: October 12 2022 $
 .Dt lux.h 0
 .Os
 .Sh NAME
@@ -31,7 +31,7 @@ library is a C library
 that allows you to query information about and modify the state of the systems
 display brightness.
 The library defines a
-.Vt struct luxdisp
+.Vt lux_t
 type which is used as an argument to all the library functions.
 This struct contains relevant file descriptors and other cacheable information;
 it’s fields are not intended to be accessed directly by the library user but
@@ -41,7 +41,7 @@ The
 .Nm liblux
 library offers three sets of functions, each with their own manual.
 These sets of functions are used to allocate and free the
-.Vt struct luxdisp
+.Vt lux_t
 structure, to query brightness information, and to modify brightness
 information.
 .Pp
@@ -49,10 +49,10 @@ The following functions deal with the allocation of library structures:
 .Bl -bullet
 .It
 .Ft int
-.Fn luxinit "struct luxdisp *"
+.Fn luxinit "lux_t *"
 .It
 .Ft void
-.Fn luxfree "struct luxdisp *"
+.Fn luxfree "lux_t *"
 .El
 .Pp
 The following functions deal with querying information regarding display
@@ -60,35 +60,35 @@ brightness:
 .Bl -bullet
 .It
 .Ft int
-.Fn luxget "struct luxdisp *"
+.Fn luxget "lux_t *"
 .It
 .Ft int
-.Fn luxmax "struct luxdisp *"
+.Fn luxmax "lux_t *"
 .It
 .Ft double
-.Fn luxgetp "struct luxdisp *"
+.Fn luxgetp "lux_t *"
 .El
 .Pp
 The following functions deal with modifying display brightness:
 .Bl -bullet
 .It
 .Ft int
-.Fn luxset "struct luxdisp *" int
+.Fn luxset "lux_t *" int
 .It
 .Ft int
-.Fn luxinc "struct luxdisp *" int
+.Fn luxinc "lux_t *" int
 .It
 .Ft int
-.Fn luxdec "struct luxdisp *" int
+.Fn luxdec "lux_t *" int
 .It
 .Ft double
-.Fn luxsetp "struct luxdisp *" double
+.Fn luxsetp "lux_t *" double
 .It
 .Ft double
-.Fn luxincp "struct luxdisp *" double
+.Fn luxincp "lux_t *" double
 .It
 .Ft double
-.Fn luxdecp "struct luxdisp *" double
+.Fn luxdecp "lux_t *" double
 .El
 .Sh SEE ALSO
 .Xr luxdec 3 ,
