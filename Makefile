@@ -4,6 +4,8 @@ PREFIX  = /usr
 DPREFIX = ${DESTDIR}${PREFIX}
 MANDIR  = ${DPREFIX}/share/man
 
+GFILE = /usr/share/groff/site-tmac/mdoc.local
+
 all:
 	@echo 'run `tup` to build the library' >&2
 
@@ -13,9 +15,8 @@ install:
 	cp src/lux.h ${DPREFIX}/include
 	cp man/*.0 ${MANDIR}/man0
 	cp man/*.3 ${MANDIR}/man3
-	file=/usr/share/groff/site-tmac/mdoc.local; \
-		grep '^\.ds doc-str-Lb-liblux' $$file > /dev/null || \
-		cat man/Lb-desc.tmac >> $$file
+	sed -i '/^\.ds doc-str-Lb-liblux/d' ${GFILE}
+	grep -v '^\.\\"' man/Lb-desc.tmac >> ${GFILE}
 
 clean:
 	rm -rf .tup/ src/*.[ao] src/*.so
