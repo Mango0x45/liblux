@@ -1,7 +1,7 @@
 import CFLAGS=
 CFLAGS += -Wall -Wextra -Wpedantic -Werror
 CFLAGS += -march=native -mtune=native
-CFLAGS += -fomit-frame-pointer -O3
+CFLAGS += -fomit-frame-pointer -flto -O3
 CFLAGS += -pipe
 
 import CC=cc
