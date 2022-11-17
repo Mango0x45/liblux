@@ -64,7 +64,7 @@ getdir(void)
 	if ((dp = readdir(dir)) == NULL
 			|| (dp = readdir(dir)) == NULL
 			|| (dp = readdir(dir)) == NULL
-			|| (fd = openat(dfd, dp->d_name, LUX_GDIR_FLAGS)) == -1)
+			|| (fd = openat(dfd, dp->d_name, O_PATH)) == -1)
 		fd = -1;
 
 	close(dfd);

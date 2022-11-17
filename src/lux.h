@@ -21,12 +21,6 @@
 #include <stdio.h>
 
 #define LIBLUX_BACKLIGHT_DIR "/sys/class/backlight"
-#ifdef O_PATH
-	#define LUX_GDIR_FLAGS O_PATH
-#else
-	#define LUX_GDIR_FLAGS (O_RDONLY | O_DIRECTORY)
-#endif
-
 
 #ifdef __cplusplus
 extern "C" {
