@@ -1,7 +1,6 @@
 import CFLAGS=
 CFLAGS += -Wall -Wextra -Wpedantic -Werror
-CFLAGS += -march=native -mtune=native
-CFLAGS += -fomit-frame-pointer -flto -O3
+CFLAGS += -march=native -mtune=native -flto -O3
 CFLAGS += -pipe
 CFLAGS += -D_GNU_SOURCE
 
