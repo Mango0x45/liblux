@@ -21,6 +21,8 @@
 .Sh NAME
 .Nm lux.h
 .Nd query and manipulate screen brightness
+.Sh LIBRARY
+.Lb liblux
 .Sh SYNOPSIS
 .In lux.h
 .Sh DESCRIPTION
