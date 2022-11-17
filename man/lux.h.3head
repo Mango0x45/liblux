@@ -16,7 +16,7 @@
 .\" PERFORMANCE OF THIS SOFTWARE.
 .\"
 .Dd $Mdocdate: November 17 2022 $
-.Dt lux.h 3HEAD
+.Dt LUX.H 3HEAD
 .Os Linux
 .Sh NAME
 .Nm lux.h
