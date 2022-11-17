@@ -38,12 +38,12 @@ typedef struct {
 } lux_t;
 
 void luxfree(lux_t *);
-int luxinit(lux_t *);
-int luxmax(lux_t *);
-int luxget(lux_t *);
-int luxset(lux_t *, int);
-int luxinc(lux_t *, int);
-int luxdec(lux_t *, int);
+int  luxinit(lux_t *);
+int  luxmax(lux_t *);
+int  luxget(lux_t *);
+int  luxset(lux_t *, int);
+int  luxinc(lux_t *, int);
+int  luxdec(lux_t *, int);
 
 double luxgetp(lux_t *);
 double luxsetp(lux_t *, double);
