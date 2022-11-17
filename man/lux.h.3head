@@ -46,7 +46,8 @@ structure, to query brightness information, and to modify brightness
 information.
 .Pp
 The following functions deal with the allocation of library structures:
-.Bl -bullet
+.Pp
+.Bl -bullet -compact
 .It
 .Ft int
 .Fn luxinit "lux_t *"
@@ -57,7 +58,8 @@ The following functions deal with the allocation of library structures:
 .Pp
 The following functions deal with querying information regarding display
 brightness:
-.Bl -bullet
+.Pp
+.Bl -bullet -compact
 .It
 .Ft int
 .Fn luxget "lux_t *"
@@ -70,7 +72,8 @@ brightness:
 .El
 .Pp
 The following functions deal with modifying display brightness:
-.Bl -bullet
+.Pp
+.Bl -bullet -compact
 .It
 .Ft int
 .Fn luxset "lux_t *" int
