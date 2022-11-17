@@ -15,12 +15,12 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef LUX_H
-#define LUX_H
+#ifndef LIBLUX_LUX_H
+#define LIBLUX_LUX_H
 
 #include <stdio.h>
 
-#define LUX_BACKLIGHT_DIR "/sys/class/backlight"
+#define LIBLUX_BACKLIGHT_DIR "/sys/class/backlight"
 #ifdef O_PATH
 	#define LUX_GDIR_FLAGS O_PATH
 #else
@@ -54,4 +54,4 @@ double luxdecp(lux_t *, double);
 }
 #endif
 
-#endif /* !LUX_H */
+#endif /* !LIBLUX_LUX_H */

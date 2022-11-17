@@ -15,8 +15,8 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef LUX_COMMON_H
-#define LUX_COMMON_H
+#ifndef LIBLUX_COMMON_H
+#define LIBLUX_COMMON_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,4 +28,4 @@ FILE *getbstream(int);
 }
 #endif
 
-#endif /* !LUX_COMMON_H */
+#endif /* !LIBLUX_COMMON_H */

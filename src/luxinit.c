@@ -48,14 +48,14 @@ getdir(void)
 	DIR *dir;
 
 	/* To get the file descriptor for the directory where all the brightness
-	 * files are located, we first need to open LUX_BACKLIGHT_DIR which is
-	 * the directory where the backlight directories are located.  Then we
-	 * need to get a DIR* of that directory and get the 3rd entry.  We need
-	 * the third because the fist and second are the . and .. folders.
+	 * files are located, we first need to open LIBLUX_BACKLIGHT_DIR which
+	 * is the directory where the backlight directories are located.  Then
+	 * we need to get a DIR* of that directory and get the 3rd entry.  We
+	 * need the third because the fist and second are the . and .. folders.
 	 * Finally we open the folder so that we have a file descriptor we can
 	 * return.
 	 */
-	if ((dfd = open(LUX_BACKLIGHT_DIR, O_RDONLY)) == -1)
+	if ((dfd = open(LIBLUX_BACKLIGHT_DIR, O_RDONLY)) == -1)
 		return -1;
 	if ((dir = fdopendir(dfd)) == NULL) {
 		close(dfd);
