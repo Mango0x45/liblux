@@ -5,7 +5,6 @@ DPREFIX = ${DESTDIR}${PREFIX}
 MANDIR  = ${DPREFIX}/share/man
 
 GDIR = /usr/share/groff/site-tmac
-DGDIR = ${DESTDIR}${GDIR}
 
 all:
 	@echo 'run `tup` to build the library' >&2
@@ -18,8 +17,7 @@ install:
 	cp src/lux.h ${DPREFIX}/include
 	cp man/*.3 ${MANDIR}/man3
 	cp man/*.3head ${MANDIR}/man3head
-	sed '/^\.ds doc-str-Lb-liblux/d' ${GDIR}/mdoc.local >${DGDIR}/mdoc.local
-	grep -v '^\.\\"' man/Lb-desc.tmac >>${DGDIR}/mdoc.local
+	@>&2 printf '\n\nIn order to ensure that manual pages render properly, run the following command:\n\n    $$ echo '"'%s'"' \\\n          >${GDIR}/mdoc.local\n' "`grep '^\.ds' man/Lb-desc.tmac`"
 
 clean:
 	rm -rf .tup/ src/*.[ao] src/*.so
